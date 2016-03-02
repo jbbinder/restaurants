@@ -9,19 +9,22 @@ import json
 from bs4 import BeautifulSoup
 import urllib.request
 
-def html_to_soup(self, rest_url='http://www.allmenus.com/dc/washington/-/?sort=popular'):
-    html = urllib.request.urlopen(rest_url).read()
-    soup = BeautifulSoup(html, "lxml")
-    for h2 in soup.findAll("a", href=True):
-    if (h2['href'])[:3] == '/dc':
-        url_list.append(h2['href'])
+class IngestSystem(object):
 
-def soup_to_urllist(self, soup):
-    url_list = []
-    for u in soup.findAll("a", href=True):
-    if (u['href'])[:3] == '/dc':
-        url_list.append(u['href'])
-    return url_list
+    def __init__(self, url_in):
+        self.url = url_in
+
+    def html_to_soup(self):
+        html = urllib.request.urlopen(self.url).read()
+        soup = BeautifulSoup(html, "lxml")
+        return soup.prettify()
+
+    def soup_to_urllist(self, soup):
+        url_list = []
+        for u in soup.findAll("a", href=True):
+            if (u['href'])[:3] == '/dc':
+            url_list.append(u['href'])
+        return url_list
 
 #html = urllib.request.urlopen('http://www.allmenus.com'+url_list[0]).read()
 #soup = BeautifulSoup(html, "lxml")

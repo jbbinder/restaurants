@@ -2,9 +2,13 @@
 """
 Driver file
 """
+import os
+import sys
+sys.path.append(os.getcwd())
+from .ingest import IngestSystem
 
-import .ingest
+strt = IngestSystem('http://www.allmenus.com/dc/washington/-/?sort=popular')
 
-print("Hi")
+
 
 #if __name__ == '__main__':
